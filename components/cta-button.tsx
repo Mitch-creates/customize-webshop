@@ -15,15 +15,16 @@ export default function CtaButton({
     <div className="relative inline-block">
       <span
         aria-hidden="true"
-        className="absolute inset-0 -translate-x-1 translate-y-1
+        className="relative inline-block
            rounded-full bg-black"
-      ></span>
-      <button
-        className={`bg-accent-${accent} text-white p-2 rounded-full cursor-pointer appearance-none relative selector-none border-black border-2 px-5 py-3 font-semibold hover:-translate-y-1  transition-transform duration-10 active:-translate-x-1 active:translate-y-1 `}
-        onClick={onClick}
       >
-        {children}
-      </button>
+        <button
+          className={`bg-accent-color2 text-black p-2 rounded-full cursor-pointer appearance-none relative selector-none border-black border-2 px-5 py-3 font-semibold translate-x-1 -translate-y-1 hover:-translate-y-2 transition-transform duration-10 active:translate-x-0 active:translate-y-0 `}
+          onClick={onClick}
+        >
+          {children}
+        </button>
+      </span>
     </div>
   );
 }

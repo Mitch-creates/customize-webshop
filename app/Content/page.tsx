@@ -1,3 +1,3 @@
 export default function Content() {
-  return <div>Wel!come to the Learning Application</div>;
+  return <div>Welcome to the Learning Application</div>;
 }

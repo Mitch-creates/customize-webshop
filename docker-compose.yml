@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:16
+    container_name: devdb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ViZgie2d3WDasgN
+      POSTGRES_DB: practicepal
+    ports:
+      - "5432:5432"
+    volumes:
+      - C:/Users/michi/Projects/Database/pgPracticePal:/var/lib/postgresql/data

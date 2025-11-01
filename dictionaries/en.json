@@ -1,0 +1,7 @@
+{
+  "onboarding": {
+    "register": "Register",
+    "login": "Login",
+    "forgotPassword": "Forgot Password?"
+  }
+}

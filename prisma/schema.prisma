@@ -13,7 +13,9 @@ generator client {
 // Represents a user in the application
 model User {
   id            String   @id @default(cuid())
-  name          String?
+  firstName     String?
+  lastName      String?
+  birthDate     DateTime?
   email         String?  @unique
   emailVerified DateTime?
   image         String?
@@ -72,12 +74,13 @@ model Profile {
   district        District? @relation(fields: [districtId], references: [id])
 
   bio             String?
-  nativeLangs     String[] @default([]) // e.g. ["de","nl"]
-  learningLangs   String[] @default([]) // e.g. ["en","fr"]
-  interests       String[] @default([]) 
+  nativeLangs     Language[] @default([])
+  learningLangs   Language[] @default([]) // Can be empty if the user only wants to help others
+  interests       Interest[] @default([])
   jobfield        String?
   preferenceDistrict District[]
   timezone        String   @default("Europe/Berlin")
+  availability    Availability[] @default([])  
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -102,6 +105,12 @@ model PracticeRequest {
   createdAt      DateTime @default(now())
 }
 
+model Language {
+  id        String   @id @default(cuid())
+  code      String   @unique // e.g., "en-GB", "de", "fr", "de-AT"
+  name      String
+}
+
 enum RequestStatus {
   OPEN
   ACCEPTED
@@ -110,4 +119,34 @@ enum RequestStatus {
 
 enum RequestKind {
   LANGUAGE
+}
+
+enum Interest {
+  TECHONOLOGY
+  SPORTS
+  MUSIC
+  TRAVEL
+  FOOD
+  ART
+  LITERATURE
+  SCIENCE
+  HISTORY
+  NATURE
+  DANCE
+  GAMING
+  MOVIES
+  FITNESS
+  FASHION
+  PHOTOGRAPHY
+  VOLUNTEERING
+  THEATRE
+  POLITICS
+  HUMOR
+
+}
+
+enum Availability {
+  DAYTIME
+  EVENING
+  WEEKENDS
 }

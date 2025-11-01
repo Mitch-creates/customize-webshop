@@ -5,8 +5,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ViZgie2d3WDasgN
-      POSTGRES_DB: practicepal
+      POSTGRES_DB: chatati
     ports:
       - "5432:5432"
     volumes:
-      - C:/Users/michi/Projects/Database/pgPracticePal:/var/lib/postgresql/data
+      - C:/Users/michi/Projects/Database/pgChatati:/var/lib/postgresql/data

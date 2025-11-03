@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// TODO support more locales eventually
 const locales = ["en", "de"] as const;
 type Locale = (typeof locales)[number];
 const defaultLocale: Locale = "en";

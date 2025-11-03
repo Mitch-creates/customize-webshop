@@ -15,7 +15,7 @@ export const getDictionary = async (locale: string) => {
     locale in dictionaries ? locale : "en"
   ) as keyof typeof dictionaries;
   return dictionaries[supportedLocale]();
-}; // TODO | "nl" | "de" when adding more languages
+};
 
 // Export the type based on the return type of getDictionary
 export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;

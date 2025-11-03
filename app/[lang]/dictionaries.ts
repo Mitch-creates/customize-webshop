@@ -4,9 +4,11 @@ const dictionaries = {
   en: () =>
     import("../../dictionaries/en.json").then((module) => module.default),
   //  TODO when adding more languages nl: () => import("../../dictionaries/nl.json").then((module) => module.default),
-  //   de: () => import("../../dictionaries/de.json").then((module) => module.default),
-};
+  de: () =>
+    import("../../dictionaries/de.json").then((module) => module.default),
+} as const;
 
+// This will infer the return type from whatever dictionary gets loaded
 export const getDictionary = async (locale: string) => {
   // Safety check: if locale is not supported, fall back to default
   const supportedLocale = (
@@ -14,3 +16,6 @@ export const getDictionary = async (locale: string) => {
   ) as keyof typeof dictionaries;
   return dictionaries[supportedLocale]();
 }; // TODO | "nl" | "de" when adding more languages
+
+// Export the type based on the return type of getDictionary
+export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;

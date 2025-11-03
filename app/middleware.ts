@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// TODO when more locales are added, update this array
-const locales = ["en"];
+// TODO support more locales eventually
+const locales = ["en"] as const;
 type Locale = (typeof locales)[number];
 const defaultLocale: Locale = "en";
 
-// Paths to ignore (api, next internals, and files with an extension)
+// Ignore API, Next internals, and files with an extension
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Skip API, Next internals, and static files
+  // Skip non-page requests
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
@@ -21,19 +21,19 @@ export function proxy(req: NextRequest) {
     return;
   }
 
-  // Already locale-prefixed?
+  // If the path already starts with a supported locale, allow it
   const hasLocale = locales.some(
     (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
   );
   if (hasLocale) return;
 
-  // No locale in the URL → force default ('en')
+  // Otherwise, force the default locale
   const url = req.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;
   return NextResponse.redirect(url);
 }
 
-// Run for everything except assets
+// Run on all pages
 export const config = {
   matcher: ["/((?!_next|api).*)"],
 };

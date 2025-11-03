@@ -21,15 +21,31 @@ export function middleware(req: NextRequest) {
     return;
   }
 
-  // If the path already starts with a supported locale, allow it
-  const hasLocale = locales.some(
+  // Check if path starts with any locale (supported or unsupported)
+  const pathnameHasLocale = pathname.split("/")[1];
+
+  // If it starts with a supported locale, allow it
+  const hasValidLocale = locales.some(
     (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
   );
-  if (hasLocale) return;
 
-  // Otherwise, force the default locale
+  if (hasValidLocale) {
+    return;
+  }
+
+  // If it starts with an unsupported locale or no locale, redirect to default
   const url = req.nextUrl.clone();
-  url.pathname = `/${defaultLocale}${pathname}`;
+
+  // If pathname starts with an unsupported locale, remove it and add default
+  if (pathnameHasLocale && pathnameHasLocale.length === 2) {
+    // Remove the unsupported locale and add default locale
+    const pathWithoutLocale = "/" + pathname.split("/").slice(2).join("/");
+    url.pathname = `/${defaultLocale}${pathWithoutLocale}`;
+  } else {
+    // No locale in path, add default locale
+    url.pathname = `/${defaultLocale}${pathname}`;
+  }
+
   return NextResponse.redirect(url);
 }
 

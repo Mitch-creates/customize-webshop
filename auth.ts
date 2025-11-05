@@ -1,5 +1,8 @@
 import { config } from "dotenv";
 config();
+// TODO Implement magic link auth https://www.better-auth.com/docs/plugins/magic-link
+// TODO Implement passkey https://www.better-auth.com/docs/plugins/passkey
+// Implement username? https://www.better-auth.com/docs/plugins/username
 
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
@@ -10,4 +13,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+  emailAndPassword: {
+    enabled: true,
+  },
 });

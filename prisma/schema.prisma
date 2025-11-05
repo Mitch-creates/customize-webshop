@@ -74,13 +74,13 @@ model Profile {
   district        District? @relation(fields: [districtId], references: [id])
 
   bio             String?
-  nativeLangs     Language[] @default([])
-  learningLangs   Language[] @default([]) // Can be empty if the user only wants to help others
-  interests       Interest[] @default([])
+  nativeLangs     Language[]
+  learningLangs   Language[] // Can be empty if the user only wants to help others
+  interests       Interest[]
   jobfield        String?
   preferenceDistrict District[]
   timezone        String   @default("Europe/Berlin")
-  availability    Availability[] @default([])  
+  availability    Availability[] 
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

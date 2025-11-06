@@ -29,7 +29,9 @@ export default function Navbar({ dict }: NavbarProps) {
           <RegularButton>{dict.onboarding.signIn}</RegularButton>
         </li>
         <li>
-          <CtaButton accent="color2">{dict.onboarding.signUp}</CtaButton>
+          <Link href="/account/signup">
+            <CtaButton accent="color2">{dict.onboarding.signUp}</CtaButton>
+          </Link>
         </li>
       </ul>
     </nav>

@@ -26,10 +26,10 @@ export default function Navbar({ dict }: NavbarProps) {
       </ul>
       <ul className="flex space-x-4">
         <li>
-          <RegularButton>{dict.onboarding.login}</RegularButton>
+          <RegularButton>{dict.onboarding.signIn}</RegularButton>
         </li>
         <li>
-          <CtaButton accent="color2">{dict.onboarding.register}</CtaButton>
+          <CtaButton accent="color2">{dict.onboarding.signUp}</CtaButton>
         </li>
       </ul>
     </nav>

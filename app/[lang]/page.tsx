@@ -7,5 +7,5 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const dict = await getDictionary(lang); // Will fall back to "en" if unsupported
-  return <button>{dict.onboarding.register}</button>;
+  return <button>{dict.onboarding.signUp}</button>;
 }

@@ -2,6 +2,18 @@
   "onboarding": {
     "signUp": "Registrieren",
     "signIn": "Anmelden",
-    "forgotPassword": "Passwort vergessen?"
+    "forgotPassword": "Passwort vergessen?",
+    "becomeAChatati": "Werde ein Chatati",
+    "fillInAllFields": "Füllen Sie alle Felder aus, um Ihr Konto zu erstellen.",
+    "emailAddress": "E-Mail-Adresse",
+    "enterYourEmail": "Geben Sie Ihre E-Mail ein",
+    "password": "Passwort",
+    "enterYourPassword": "Geben Sie Sie Ihr Passwort ein",
+    "confirmPassword": "Passwort bestätigen",
+    "enterYourConfirmPassword": "Geben Sie Ihr Passwort zur Bestätigung ein",
+    "firstName": "Vorname",
+    "enterYourFirstName": "Geben Sie Ihren Vornamen ein",
+    "lastName": "Nachname",
+    "enterYourLastName": "Geben Sie Ihren Nachnamen ein"
   }
 }

@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { signUpSchema, type SignUpFormData } from "@/lib/reusableZodSchemas";
 import {
   FieldDescription,
@@ -18,6 +19,8 @@ export function SignUpForm() {
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
   });
+
+  const t = useTranslations("onboarding");
 
   const onSubmit = async (data: SignUpFormData) => {
     // Send to API route
@@ -39,10 +42,8 @@ export function SignUpForm() {
         <form>
           <FieldGroup>
             <FieldSet>
-              <FieldLegend>Become a Chatati</FieldLegend>
-              <FieldDescription>
-                Fill in all fields to create your account.
-              </FieldDescription>
+              <FieldLegend>{t("becomeAChatati")}</FieldLegend>
+              <FieldDescription>{t("fillInAllFields")}</FieldDescription>
             </FieldSet>
           </FieldGroup>
         </form>

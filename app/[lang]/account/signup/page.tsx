@@ -1,3 +1,4 @@
+import { SignUpForm } from "@/components/account/signUpForm";
 import { getDictionary } from "../../dictionaries";
 
 export default async function SignUp({
@@ -7,5 +8,9 @@ export default async function SignUp({
 }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
-  return <div className="w-full max-w-md space-y-6"></div>;
+  return (
+    <div className="w-full max-w-md space-y-6">
+      <SignUpForm />
+    </div>
+  );
 }

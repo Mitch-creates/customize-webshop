@@ -2,8 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { CtaButton } from "../buttons/ctaButton";
 import { signUpSchema, type SignUpFormData } from "@/lib/reusableZodSchemas";
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "../ui/field";
 
 export function SignUpForm() {
   const {
@@ -30,6 +35,18 @@ export function SignUpForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Next up define form || THEN define api route */}
+      <div className="w-full max-w-md">
+        <form>
+          <FieldGroup>
+            <FieldSet>
+              <FieldLegend>Become a Chatati</FieldLegend>
+              <FieldDescription>
+                Fill in all fields to create your account.
+              </FieldDescription>
+            </FieldSet>
+          </FieldGroup>
+        </form>
+      </div>
     </form>
   );
 }

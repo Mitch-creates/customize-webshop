@@ -1,13 +1,8 @@
 import Link from "next/link";
 import CtaButton from "./cta-button";
 import RegularButton from "./regular-button";
-import { Dictionary } from "@/app/[lang]/dictionaries";
 
-interface NavbarProps {
-  dict: Dictionary;
-}
-
-export default function Navbar({ dict }: NavbarProps) {
+export default function Navbar() {
   return (
     <nav className="flex justify-between items-center p-4 border-b-2 select-none">
       <h1>
@@ -26,11 +21,11 @@ export default function Navbar({ dict }: NavbarProps) {
       </ul>
       <ul className="flex space-x-4">
         <li>
-          <RegularButton>{dict.onboarding.signIn}</RegularButton>
+          <RegularButton>Sign in </RegularButton>
         </li>
         <li>
           <Link href="/account/signup">
-            <CtaButton accent="color2">{dict.onboarding.signUp}</CtaButton>
+            <CtaButton accent="color2">Sign up</CtaButton>
           </Link>
         </li>
       </ul>

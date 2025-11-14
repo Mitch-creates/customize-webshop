@@ -15,5 +15,17 @@
     "enterYourFirstName": "Enter your first name",
     "lastName": "Last Name",
     "enterYourLastName": "Enter your last name"
+  },
+  "validation": {
+    "emailRequired": "Email is required.",
+    "emailInvalid": "Email is invalid.",
+    "passwordRequired": "Password is required.",
+    "passwordMinLength": "Password must be at least 8 characters long.",
+    "passwordUppercase": "Password must contain at least one uppercase letter.",
+    "passwordNumber": "Password must contain at least one number.",
+    "confirmPasswordRequired": "Please confirm your password.",
+    "confirmPasswordMatch": "Passwords do not match.",
+    "firstNameInvalid": "Please provide a valid first name.",
+    "lastNameInvalid": "Please provide a valid last name."
   }
 }

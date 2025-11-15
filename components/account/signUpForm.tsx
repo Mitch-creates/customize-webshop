@@ -59,11 +59,11 @@ export function SignUpForm() {
   };
 
   return (
-    <Card className="w-full sm:max-w-md">
-      <CardContent>
+    <Card className="w-full md:max-w-lg sm:max-w-2xl border-2 border-black shadow-[4px_4px_0_0_black]">
+      <CardContent className="p-4 sm:p-6">
         <form
           id="signUpForm"
-          className="w-full max-w-md flex flex-col justify-center space-y-6"
+          className="w-full flex flex-col justify-center space-y-4"
           onSubmit={signUpForm.handleSubmit(onSubmit)}
         >
           <FieldGroup>
@@ -73,6 +73,9 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="signUp-firstName">First Name</FieldLabel>
+                  <FieldDescription>
+                    Your first name will be visible to other Chatati's
+                  </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-firstName"
@@ -94,6 +97,10 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="signUp-lastName">Last Name</FieldLabel>
+                  <FieldDescription>
+                    Only the first letter of your last name will be visible to
+                    other Chatati's
+                  </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-lastName"
@@ -115,6 +122,10 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="signUp-email">Email</FieldLabel>
+                  <FieldDescription>
+                    Other Chatati's do NOT see your email address. This
+                    information is only shared when matched.
+                  </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-email"

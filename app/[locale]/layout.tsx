@@ -7,6 +7,7 @@ import { Reem_Kufi } from "next/font/google";
 const reem = Reem_Kufi({
   subsets: ["latin"],
   variable: "--font-reem",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default async function RootLayout({
   const { locale } = await params;
   return (
     <html lang={locale} className={`${reem.variable} font-sans`}>
-      <body>
+      <body className={reem.className}>
         <NextIntlClientProvider>
           <Navbar />
           {children}

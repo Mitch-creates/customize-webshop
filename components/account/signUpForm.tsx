@@ -59,7 +59,7 @@ export function SignUpForm() {
   };
 
   return (
-    <Card className="w-full md:max-w-lg sm:max-w-2xl border-2 border-black shadow-[4px_4px_0_0_black]">
+    <Card className="w-full sm:max-w-lg md:max-w-2xl border-2 border-black shadow-[4px_4px_0_0_black]">
       <CardContent className="p-4 sm:p-6">
         <form
           id="signUpForm"

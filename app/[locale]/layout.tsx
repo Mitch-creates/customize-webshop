@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import "../globals.css";
 import Navbar from "@/components/nav-bar";
 import { NextIntlClientProvider } from "next-intl";
+import { Reem_Kufi } from "next/font/google";
+
+const reem = Reem_Kufi({
+  subsets: ["latin"],
+  variable: "--font-reem",
+});
 
 export const metadata: Metadata = {
   title: "Learning application",
@@ -10,13 +16,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
   return (
-    <html>
-      <body className="font-polysans">
+    <html lang={locale} className={`${reem.variable} font-sans`}>
+      <body>
         <NextIntlClientProvider>
           <Navbar />
           {children}

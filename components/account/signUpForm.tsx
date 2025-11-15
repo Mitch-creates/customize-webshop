@@ -182,6 +182,7 @@ export function SignUpForm() {
             type="submit"
             form="signUpForm"
             disabled={signUpForm.formState.isSubmitting}
+            fullWidth="w-full"
           >
             Sign up
           </CtaButton>

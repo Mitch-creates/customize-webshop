@@ -10,17 +10,15 @@
   --color-accent-color2: #95ed72;
 }
 
-/* Custom text selection colors */
-::selection {
+/* ::selection {
   background-color: var(--color-accent-color2);
   color: #000000;
 }
 
-/* Firefox compatibility for the text selection colors */
 ::-moz-selection {
   background-color: var(--color-accent-color2);
   color: #000000;
-}
+} */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

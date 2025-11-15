@@ -16,6 +16,16 @@ import {
   SignUpFormData,
 } from "@/lib/zod-schemas/signupFormSchema";
 import { Input } from "../ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import RegularButton from "../regular-button";
+import CtaButton from "../cta-button";
 
 export function SignUpForm() {
   const validationMessages = useTranslations("validation");
@@ -48,12 +58,6 @@ export function SignUpForm() {
 
   return (
     <Card className="w-full sm:max-w-md">
-      <CardHeader>
-        <CardTitle>Personalization</CardTitle>
-        <CardDescription>
-          Customize your experience by telling us more about yourself.
-        </CardDescription>
-      </CardHeader>
       <CardContent>
         <form
           id="signUpForm"
@@ -73,6 +77,7 @@ export function SignUpForm() {
                     id="signUp-firstName"
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter your first name"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -93,6 +98,7 @@ export function SignUpForm() {
                     id="signUp-lastName"
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter your last name"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -113,6 +119,7 @@ export function SignUpForm() {
                     id="signUp-email"
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter your email"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -134,6 +141,7 @@ export function SignUpForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Please enter your password"
                     type="password"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -157,6 +165,7 @@ export function SignUpForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Please confirm your password"
                     type="password"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -167,6 +176,17 @@ export function SignUpForm() {
           </FieldGroup>
         </form>
       </CardContent>
+      <CardFooter>
+        <Field orientation="horizontal">
+          <CtaButton
+            type="submit"
+            form="signUpForm"
+            disabled={signUpForm.formState.isSubmitting}
+          >
+            Sign up
+          </CtaButton>
+        </Field>
+      </CardFooter>
     </Card>
   );
 }

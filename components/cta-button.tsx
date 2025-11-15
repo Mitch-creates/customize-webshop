@@ -4,12 +4,18 @@ interface CtaButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
   accent?: "color1" | "color2";
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  form?: string;
 }
 
 export default function CtaButton({
   onClick,
   children,
   accent = "color2",
+  type = "button",
+  disabled = false,
+  form,
 }: CtaButtonProps) {
   return (
     <div className="relative inline-block">
@@ -19,27 +25,15 @@ export default function CtaButton({
            rounded-full bg-black"
       >
         <button
+          type={type}
+          form={form}
           className={`bg-accent-color2 text-black p-2 rounded-full cursor-pointer appearance-none relative selector-none border-black border-2 px-5 py-3 font-semibold translate-x-1 -translate-y-1 hover:-translate-y-2 transition-transform duration-10 active:translate-x-0 active:translate-y-0 `}
           onClick={onClick}
+          disabled={disabled}
         >
           {children}
         </button>
       </span>
     </div>
   );
-}
-
-{
-  /* <button
-    class="relative inline-block cursor-pointer select-none
-           rounded-full border-[3px] border-black bg-white text-black
-           px-5 py-3 font-semibold leading-none
-           transition-transform duration-150 ease-out
-           shadow-[8px_8px_0_#000]
-           hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]
-           active:translate-x-2 active:translate-y-2 active:shadow-[0_0_0_#000]
-           focus-visible:outline focus-visible:outline-[3px]
-           focus-visible:outline-black focus-visible:outline-offset-2">
-    S’abonner gratuitement
-  </button> */
 }

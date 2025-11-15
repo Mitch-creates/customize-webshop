@@ -33,6 +33,8 @@ export function SignUpForm() {
 
   const signUpForm = useForm<SignUpFormData>({
     resolver: zodResolver(getSignUpFormSchema(validationMessages)),
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -64,7 +66,6 @@ export function SignUpForm() {
           className="w-full max-w-md flex flex-col justify-center space-y-6"
           onSubmit={signUpForm.handleSubmit(onSubmit)}
         >
-          {/* Next up define form || THEN define api route */}
           <FieldGroup>
             <Controller
               name="firstName"
@@ -167,9 +168,11 @@ export function SignUpForm() {
                     type="password"
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid &&
+                    (fieldState.isTouched ||
+                      signUpForm.formState.isSubmitted) && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
                 </Field>
               )}
             />

@@ -15,10 +15,10 @@ import {
 
 export default function Navbar() {
   const navigationMessages = useTranslations("navigation");
-  const session = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
-  const user = session.data?.user;
+  const user = session?.user;
 
   return (
     <nav className="flex justify-between items-center p-4 border-b-2 select-none">
@@ -33,19 +33,33 @@ export default function Navbar() {
           <Link href="/Dashboard">{navigationMessages("about")}</Link>
         </li>
       </ul>
-      {user && !session.isPending ? (
+      {user && !isPending ? (
         <DropdownMenu>
-          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuTrigger>
+            <div className="flex items-center gap-2">
+              {
+                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              }
+              <span className="hidden md:block">{user.name}</span>
+            </div>
+          </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={`/profile/${user.id}`}>Profile</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/account/settings">Settings</Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => {
-                authClient.signOut({
+              onClick={async () => {
+                await authClient.signOut({
                   fetchOptions: {
                     onSuccess: () => {
                       router.push("/");
+                      router.refresh();
                     },
                   },
                 });
@@ -55,6 +69,8 @@ export default function Navbar() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      ) : isPending ? (
+        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
       ) : (
         <ul className="flex space-x-4">
           <li>

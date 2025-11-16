@@ -14,7 +14,17 @@
     "firstName": "Vorname",
     "enterYourFirstName": "Geben Sie Ihren Vornamen ein",
     "lastName": "Nachname",
-    "enterYourLastName": "Geben Sie Ihren Nachnamen ein"
+    "enterYourLastName": "Geben Sie Ihren Nachnamen ein",
+    "firstNameDescription": "Ihr Vorname wird für andere Chatati's sichtbar sein",
+    "firstNamePlaceholder": "Bitte geben Sie Ihren Vornamen ein",
+    "lastNameDescription": "Nur der erste Buchstabe Ihres Nachnamens wird für andere Chatati's sichtbar sein",
+    "lastNamePlaceholder": "Bitte geben Sie Ihren Nachnamen ein",
+    "emailDescription": "Andere Chatati's sehen NICHT Ihre E-Mail-Adresse. Diese Information wird nur bei einem Match geteilt.",
+    "emailPlaceholder": "Bitte geben Sie Ihre E-Mail ein",
+    "passwordPlaceholder": "Bitte geben Sie Ihr Passwort ein",
+    "confirmPasswordPlaceholder": "Bitte bestätigen Sie Ihr Passwort",
+    "submitting": "Konto wird erstellt...",
+    "submit": "Konto erstellen"
   },
   "validation": {
     "emailRequired": "E-Mail ist erforderlich.",
@@ -28,16 +38,11 @@
     "firstNameInvalid": "Bitte geben Sie einen gültigen Vornamen an.",
     "lastNameInvalid": "Bitte geben Sie einen gültigen Nachnamen an."
   },
-  "form": {
-    "firstNameDescription": "Ihr Vorname wird für andere Chatati's sichtbar sein",
-    "firstNamePlaceholder": "Bitte geben Sie Ihren Vornamen ein",
-    "lastNameDescription": "Nur der erste Buchstabe Ihres Nachnamens wird für andere Chatati's sichtbar sein",
-    "lastNamePlaceholder": "Bitte geben Sie Ihren Nachnamen ein",
-    "emailDescription": "Andere Chatati's sehen NICHT Ihre E-Mail-Adresse. Diese Information wird nur bei einem Match geteilt.",
-    "emailPlaceholder": "Bitte geben Sie Ihre E-Mail ein",
-    "passwordPlaceholder": "Bitte geben Sie Ihr Passwort ein",
-    "confirmPasswordPlaceholder": "Bitte bestätigen Sie Ihr Passwort",
-    "submitting": "Konto wird erstellt...",
-    "submit": "Konto erstellen"
+  "form": {},
+  "navigation": {
+    "about": "Über uns",
+    "news": "Neuigkeiten",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren"
   }
 }

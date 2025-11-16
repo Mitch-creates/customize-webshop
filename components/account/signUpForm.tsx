@@ -8,23 +8,13 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
-  FieldSet,
 } from "../ui/field";
 import {
   getSignUpFormSchema,
   SignUpFormData,
 } from "@/lib/zod-schemas/signupFormSchema";
 import { Input } from "../ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import RegularButton from "../regular-button";
+import { Card, CardContent, CardFooter } from "../ui/card";
 import CtaButton from "../cta-button";
 
 export function SignUpForm() {
@@ -77,13 +67,13 @@ export function SignUpForm() {
                     {onboardingMessages("firstName")}
                   </FieldLabel>
                   <FieldDescription>
-                    {formMessages("firstNameDescription")}
+                    {onboardingMessages("firstNameDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-firstName"
                     aria-invalid={fieldState.invalid}
-                    placeholder={formMessages("firstNamePlaceholder")}
+                    placeholder={onboardingMessages("firstNamePlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -103,13 +93,13 @@ export function SignUpForm() {
                     {onboardingMessages("lastName")}
                   </FieldLabel>
                   <FieldDescription>
-                    {formMessages("lastNameDescription")}
+                    {onboardingMessages("lastNameDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-lastName"
                     aria-invalid={fieldState.invalid}
-                    placeholder={formMessages("lastNamePlaceholder")}
+                    placeholder={onboardingMessages("lastNamePlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -129,13 +119,13 @@ export function SignUpForm() {
                     {onboardingMessages("emailAddress")}
                   </FieldLabel>
                   <FieldDescription>
-                    {formMessages("emailDescription")}
+                    {onboardingMessages("emailDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-email"
                     aria-invalid={fieldState.invalid}
-                    placeholder={formMessages("emailPlaceholder")}
+                    placeholder={onboardingMessages("emailPlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -158,7 +148,7 @@ export function SignUpForm() {
                     {...field}
                     id="signUp-password"
                     aria-invalid={fieldState.invalid}
-                    placeholder={formMessages("passwordPlaceholder")}
+                    placeholder={onboardingMessages("passwordPlaceholder")}
                     type="password"
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
@@ -182,7 +172,9 @@ export function SignUpForm() {
                     {...field}
                     id="signUp-confirmPassword"
                     aria-invalid={fieldState.invalid}
-                    placeholder={formMessages("confirmPasswordPlaceholder")}
+                    placeholder={onboardingMessages(
+                      "confirmPasswordPlaceholder"
+                    )}
                     type="password"
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
@@ -206,8 +198,8 @@ export function SignUpForm() {
             fullWidth="w-full"
           >
             {signUpForm.formState.isSubmitting
-              ? formMessages("submitting")
-              : onboardingMessages("signUp")}
+              ? onboardingMessages("submitting").toLocaleUpperCase()
+              : onboardingMessages("signUp").toLocaleUpperCase()}
           </CtaButton>
         </Field>
       </CardFooter>

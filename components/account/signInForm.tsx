@@ -1,0 +1,144 @@
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "../ui/field";
+import {
+  getSignUpFormSchema,
+  SignUpFormData,
+} from "@/lib/zod-schemas/signupFormSchema";
+import { Input } from "../ui/input";
+import { Card, CardContent, CardFooter } from "../ui/card";
+import CtaButton from "../cta-button";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "@/i18n/navigation";
+import { useState } from "react";
+
+export function SignUpForm() {
+  const validationMessages = useTranslations("validation");
+  const onboardingMessages = useTranslations("onboarding");
+
+  const signUpForm = useForm<SignUpFormData>({
+    resolver: zodResolver(getSignUpFormSchema(validationMessages)),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
+
+  const onSubmit = async (data: SignInFormData) => {
+    authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onRequest: () => {
+          setIsPending(true);
+        },
+        onResponse: () => {
+          setIsPending(false);
+        },
+        onSuccess: () => {
+          router.push("/"); // TODO Direct to search Chatati page
+        },
+        onError: (ctx) => {
+          // TODO update UI when fail (probably when Email is already taken)
+          // If that's the case we can show a forgot password link or similar
+          alert(ctx.error.message);
+          setIsPending(false);
+        },
+      }
+    );
+  };
+
+  return (
+    <Card className="w-full border-2 border-black shadow-[4px_4px_0_0_black]">
+      <CardContent className="p-4 sm:p-6">
+        <form
+          id="signInForm"
+          className="w-full flex flex-col justify-center space-y-4"
+          onSubmit={signInForm.handleSubmit(onSubmit)}
+        >
+          <FieldGroup>
+            <Controller
+              name="email"
+              control={signInForm.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="signIn-email">
+                    {onboardingMessages("emailAddress")}
+                  </FieldLabel>
+                  <FieldDescription>
+                    {onboardingMessages("emailDescription")}
+                  </FieldDescription>
+                  <Input
+                    {...field}
+                    id="signIn-email"
+                    aria-invalid={fieldState.invalid}
+                    placeholder={onboardingMessages("emailPlaceholder")}
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <Controller
+              name="password"
+              control={signInForm.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="signIn-password">
+                    {onboardingMessages("password")}
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="signIn-password"
+                    aria-invalid={fieldState.invalid}
+                    placeholder={onboardingMessages("passwordPlaceholder")}
+                    type="password"
+                    className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <Field orientation="horizontal">
+          <CtaButton
+            type="submit"
+            form="signInForm"
+            disabled={signInForm.formState.isSubmitting}
+            fullWidth="w-full"
+          >
+            {isPending
+              ? onboardingMessages("signingIn").toLocaleUpperCase()
+              : onboardingMessages("signIn").toLocaleUpperCase()}
+          </CtaButton>
+        </Field>
+      </CardFooter>
+    </Card>
+  );
+}

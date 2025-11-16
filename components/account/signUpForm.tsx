@@ -55,7 +55,7 @@ export function SignUpForm() {
           setIsPending(false);
         },
         onSuccess: () => {
-          router.push("/");
+          router.push("/"); // TODO Direct to search Chatati page
         },
         onError: (ctx) => {
           // TODO update UI when fail (probably when Email is already taken)

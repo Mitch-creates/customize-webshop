@@ -20,7 +20,6 @@ import CtaButton from "../cta-button";
 export function SignUpForm() {
   const validationMessages = useTranslations("validation");
   const onboardingMessages = useTranslations("onboarding");
-  const formMessages = useTranslations("form");
 
   const signUpForm = useForm<SignUpFormData>({
     resolver: zodResolver(getSignUpFormSchema(validationMessages)),
@@ -50,7 +49,7 @@ export function SignUpForm() {
   };
 
   return (
-    <Card className="w-full sm:max-w-lg md:max-w-2xl border-2 border-black shadow-[4px_4px_0_0_black]">
+    <Card className="w-full border-2 border-black shadow-[4px_4px_0_0_black]">
       <CardContent className="p-4 sm:p-6">
         <form
           id="signUpForm"

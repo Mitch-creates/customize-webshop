@@ -78,7 +78,7 @@ model Verification {
 }
 
 // ============================================
-// Your Application Models
+// Application Models
 // ============================================
 
 model Profile {

@@ -25,7 +25,10 @@
     "passwordPlaceholder": "Please enter your password",
     "confirmPasswordPlaceholder": "Please confirm your password",
     "submitting": "Creating account...",
-    "submit": "Create Account"
+    "submit": "Create Account",
+    "signingIn": "Signing in...",
+    "welcomeBack": "Welcome Back",
+    "welcomeBackMessage": "We're glad to see you again! Please sign in to continue practicing languages."
   },
   "validation": {
     "emailRequired": "Email is required.",

@@ -58,7 +58,9 @@ export default function Navbar() {
       ) : (
         <ul className="flex space-x-4">
           <li>
-            <RegularButton>{navigationMessages("signIn")}</RegularButton>
+            <Link href="/account/signin">
+              <RegularButton>{navigationMessages("signIn")}</RegularButton>
+            </Link>
           </li>
           <li>
             <Link href="/account/signup">

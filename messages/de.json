@@ -25,7 +25,8 @@
     "passwordPlaceholder": "Bitte geben Sie Ihr Passwort ein",
     "confirmPasswordPlaceholder": "Bitte bestätigen Sie Ihr Passwort",
     "submitting": "Konto wird erstellt...",
-    "submit": "Konto erstellen"
+    "submit": "Konto erstellen",
+    "signingIn": "Anmeldung läuft..."
   },
   "validation": {
     "emailRequired": "E-Mail ist erforderlich.",

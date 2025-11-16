@@ -2,17 +2,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "../ui/field";
-import {
-  getSignUpFormSchema,
-  SignUpFormData,
-} from "@/lib/zod-schemas/signupFormSchema";
+  getSignInFormSchema,
+  SignInFormData,
+} from "@/lib/zod-schemas/signInFormSchema";
 import { Input } from "../ui/input";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import CtaButton from "../cta-button";
@@ -20,20 +14,17 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 
-export function SignUpForm() {
+export function SignInForm() {
   const validationMessages = useTranslations("validation");
   const onboardingMessages = useTranslations("onboarding");
 
-  const signUpForm = useForm<SignUpFormData>({
-    resolver: zodResolver(getSignUpFormSchema(validationMessages)),
+  const signInForm = useForm<SignInFormData>({
+    resolver: zodResolver(getSignInFormSchema(validationMessages)),
     mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
   const [isPending, setIsPending] = useState(false);
@@ -56,8 +47,7 @@ export function SignUpForm() {
           router.push("/"); // TODO Direct to search Chatati page
         },
         onError: (ctx) => {
-          // TODO update UI when fail (probably when Email is already taken)
-          // If that's the case we can show a forgot password link or similar
+          // TODO update UI when fail (probably when Email doesn't exist/Password is wrong etc)
           alert(ctx.error.message);
           setIsPending(false);
         },
@@ -82,9 +72,6 @@ export function SignUpForm() {
                   <FieldLabel htmlFor="signIn-email">
                     {onboardingMessages("emailAddress")}
                   </FieldLabel>
-                  <FieldDescription>
-                    {onboardingMessages("emailDescription")}
-                  </FieldDescription>
                   <Input
                     {...field}
                     id="signIn-email"

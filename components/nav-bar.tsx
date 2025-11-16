@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav className="flex justify-between items-center p-4 border-b-2 select-none">
       <h1>
-        <Link href="/">My Website</Link>
+        <Link href="/">Logo Website</Link>
       </h1>
       <ul className="flex space-x-4">
         <li>

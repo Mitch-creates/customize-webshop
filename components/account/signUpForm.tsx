@@ -16,6 +16,9 @@ import {
 import { Input } from "../ui/input";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import CtaButton from "../cta-button";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "@/i18n/navigation";
+import { useState } from "react";
 
 export function SignUpForm() {
   const validationMessages = useTranslations("validation");
@@ -33,19 +36,35 @@ export function SignUpForm() {
       confirmPassword: "",
     },
   });
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
 
   const onSubmit = async (data: SignUpFormData) => {
-    // Send to API route
-    console.log(data);
-    // const response = await fetch("/api/auth/signup", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // });
-
-    // if (!response.ok) {
-    //   // Handle server errors
-    // }
+    authClient.signUp.email(
+      {
+        email: data.email,
+        password: data.password,
+        name: data.firstName + " " + data.lastName.charAt(0).toUpperCase(),
+        // callbackURL: "/", TODO when verification with email is setup this is the URL the user is redirected to
+      },
+      {
+        onRequest: () => {
+          setIsPending(true);
+        },
+        onResponse: () => {
+          setIsPending(false);
+        },
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (ctx) => {
+          // TODO update UI when fail (probably when Email is already taken)
+          // If that's the case we can show a forgot password link or similar
+          alert(ctx.error.message);
+          setIsPending(false);
+        },
+      }
+    );
   };
 
   return (
@@ -196,7 +215,7 @@ export function SignUpForm() {
             disabled={signUpForm.formState.isSubmitting}
             fullWidth="w-full"
           >
-            {signUpForm.formState.isSubmitting
+            {isPending
               ? onboardingMessages("submitting").toLocaleUpperCase()
               : onboardingMessages("signUp").toLocaleUpperCase()}
           </CtaButton>

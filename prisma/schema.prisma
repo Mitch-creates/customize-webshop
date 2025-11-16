@@ -7,113 +7,130 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Preparation for Betterauth integration
-// TODO Add indexes where necessary
+// ============================================
+// Better Auth Core Schema (Required)
+// https://www.better-auth.com/docs/concepts/database#core-schema
+// ============================================
 
-// Represents a user in the application
 model User {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Custom fields
   firstName     String?
   lastName      String?
   birthDate     DateTime?
-  email         String?  @unique
-  emailVerified DateTime?
-  image         String?
 
-  profile       Profile?
-  requests      PracticeRequest[]
-
-  accounts      Account[]
-  sessions      Session[]
+  // Relations
+  accounts  Account[]
+  sessions  Session[]
+  profile   Profile?
+  requests  PracticeRequest[]
 }
 
-// Represents an OAuth account linked to a user. Think “GitHub login for user X,” “Google login for user X,” etc.
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  id                    String    @id @default(cuid())
+  accountId             String    // The id of the account from the provider
+  providerId            String    // The id of the provider (e.g. "google", "github")
+  userId                String    // The id of the user
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?   // Only for credentials provider
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@unique([provider, providerAccountId])
+
+  @@unique([providerId, accountId])
 }
 
-// We need this table only if we use database-backed sessions. If we choose stateless JWT or encrypted cookie sessions in Better Auth, we can drop this model. TODO: Decide on session strategy.
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// used for email verification and password reset tokens
-model VerificationToken {
+model Verification {
+  id         String   @id @default(cuid())
   identifier String
-  token      String   @unique
-  expires    DateTime
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  @@unique([identifier, token])
+  @@unique([identifier, value])
 }
+
+// ============================================
+// Your Application Models
+// ============================================
 
 model Profile {
-  id              String   @id @default(cuid())
-  userId          String   @unique
-  user            User     @relation(fields: [userId], references: [id])
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  districtId      String?
-  district        District? @relation("ProfileDistrict", fields: [districtId], references: [id])
+  districtId String?
+  district   District? @relation("ProfileDistrict", fields: [districtId], references: [id])
 
-  bio             String?
-  nativeLangs     Language[] @relation("NativeLanguages")
-  learningLangs   Language[] @relation("LearningLanguages") // Can be empty if the user only wants to help others
-  interests       Interest[]
-  jobfield        String?
-  preferenceDistrict District[] @relation("PreferenceDistricts")
-  timezone        String   @default("Europe/Berlin")
-  availability    Availability[] 
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  bio                String?
+  nativeLangs        Language[]     @relation("NativeLanguages")
+  learningLangs      Language[]     @relation("LearningLanguages")
+  interests          Interest[]
+  jobfield           String?
+  preferenceDistrict District[]     @relation("PreferenceDistricts")
+  timezone           String         @default("Europe/Berlin")
+  availability       Availability[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
 }
 
 model District {
-  id        String    @id @default(cuid())
-  name      String    @unique
-  city      String
-  country   String
-  profiles Profile[] @relation("ProfileDistrict")
+  id                  String    @id @default(cuid())
+  name                String    @unique
+  city                String
+  country             String
+  profiles            Profile[] @relation("ProfileDistrict")
   preferredByProfiles Profile[] @relation("PreferenceDistricts")
 }
 
 model PracticeRequest {
-  id              String   @id @default(cuid())
-  requesterId     String
-  requester       User     @relation(fields: [requesterId], references: [id])
-  
-  message        String?
-  status         RequestStatus @default(OPEN)
-  requestType    RequestType   @default(LANGUAGE)
-
-  createdAt      DateTime @default(now())
+  id          String        @id @default(cuid())
+  requesterId String
+  requester   User          @relation(fields: [requesterId], references: [id], onDelete: Cascade)
+  message     String?
+  status      RequestStatus @default(OPEN)
+  requestType RequestType   @default(LANGUAGE)
+  createdAt   DateTime      @default(now())
 }
 
 model Language {
-  id        String   @id @default(cuid())
-  code      String   @unique // e.g., "en-GB", "de", "fr", "de-AT"
-  name      String
-  teachers  Profile[] @relation("NativeLanguages")
-  learners       Profile[] @relation("LearningLanguages")
+  id       String    @id @default(cuid())
+  code     String    @unique
+  name     String
+  teachers Profile[] @relation("NativeLanguages")
+  learners Profile[] @relation("LearningLanguages")
 }
+
+// ============================================
+// Enums
+// ============================================
 
 enum RequestStatus {
   OPEN
@@ -126,7 +143,7 @@ enum RequestType {
 }
 
 enum Interest {
-  TECHONOLOGY
+  TECHNOLOGY
   SPORTS
   MUSIC
   TRAVEL
@@ -146,7 +163,6 @@ enum Interest {
   THEATRE
   POLITICS
   HUMOR
-
 }
 
 enum Availability {

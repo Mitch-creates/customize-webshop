@@ -1,5 +1,16 @@
 # Chatati
 
+The project was made with the following tools and techs:
+
+- **Node.js** - JavaScript runtime environment
+- **Docker** - Containerization platform
+- **Docker Compose** - Multi-container Docker orchestration
+- **Prisma** - Database ORM and migration tool
+- **PostgreSQL** - Database (implied by Docker Compose usage)
+- **Zod** - For form validation
+- **next-intl** - Internationalization and localization
+- **Better Auth** - Authentication solution
+
 ## Setup
 
 ### Prerequisites
@@ -50,6 +61,29 @@ npm run dev
 ## Useful Commands
 
 ### Prisma
+
+#### Full code to create a migration:
+
+1. Stop Dev server with Ctrl + C
+2. run either the following command to update
+
+```bash
+npx prisma migrate dev --name update_auth_schema
+```
+
+3. Or the following to completely reset the database
+
+```bash
+npx prisma migrate reset
+```
+
+4. Generate the Prisma Client.
+
+```bash
+npx prisma migrate reset
+```
+
+#### Other Prisma commands
 
 ```bash
 # Generate Prisma client

@@ -10,8 +10,8 @@ export default async function SignUp() {
             Become a Chatati
           </h1>
           <p className="text-base sm:text-lg text-gray-600">
-            Practice German. Or practice another language in exchange for your
-            German.
+            Practice a language. Or practice another language in exchange for
+            your language.
           </p>
         </div>
       </div>

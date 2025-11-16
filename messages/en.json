@@ -27,5 +27,17 @@
     "confirmPasswordMatch": "Passwords do not match.",
     "firstNameInvalid": "Please provide a valid first name.",
     "lastNameInvalid": "Please provide a valid last name."
+  },
+  "form": {
+    "firstNameDescription": "Your first name will be visible to other Chatati's",
+    "firstNamePlaceholder": "Please enter your first name",
+    "lastNameDescription": "Only the first letter of your last name will be visible to other Chatati's",
+    "lastNamePlaceholder": "Please enter your last name",
+    "emailDescription": "Other Chatati's do NOT see your email address. This information is only shared when matched.",
+    "emailPlaceholder": "Please enter your email",
+    "passwordPlaceholder": "Please enter your password",
+    "confirmPasswordPlaceholder": "Please confirm your password",
+    "submitting": "Creating account...",
+    "submit": "Create Account"
   }
 }

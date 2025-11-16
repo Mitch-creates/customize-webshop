@@ -30,6 +30,7 @@ import CtaButton from "../cta-button";
 export function SignUpForm() {
   const validationMessages = useTranslations("validation");
   const onboardingMessages = useTranslations("onboarding");
+  const formMessages = useTranslations("form");
 
   const signUpForm = useForm<SignUpFormData>({
     resolver: zodResolver(getSignUpFormSchema(validationMessages)),
@@ -72,15 +73,17 @@ export function SignUpForm() {
               control={signUpForm.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="signUp-firstName">First Name</FieldLabel>
+                  <FieldLabel htmlFor="signUp-firstName">
+                    {onboardingMessages("firstName")}
+                  </FieldLabel>
                   <FieldDescription>
-                    Your first name will be visible to other Chatati's
+                    {formMessages("firstNameDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-firstName"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Please enter your first name"
+                    placeholder={formMessages("firstNamePlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -96,16 +99,17 @@ export function SignUpForm() {
               control={signUpForm.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="signUp-lastName">Last Name</FieldLabel>
+                  <FieldLabel htmlFor="signUp-lastName">
+                    {onboardingMessages("lastName")}
+                  </FieldLabel>
                   <FieldDescription>
-                    Only the first letter of your last name will be visible to
-                    other Chatati's
+                    {formMessages("lastNameDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-lastName"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Please enter your last name"
+                    placeholder={formMessages("lastNamePlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -121,16 +125,17 @@ export function SignUpForm() {
               control={signUpForm.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="signUp-email">Email</FieldLabel>
+                  <FieldLabel htmlFor="signUp-email">
+                    {onboardingMessages("emailAddress")}
+                  </FieldLabel>
                   <FieldDescription>
-                    Other Chatati's do NOT see your email address. This
-                    information is only shared when matched.
+                    {formMessages("emailDescription")}
                   </FieldDescription>
                   <Input
                     {...field}
                     id="signUp-email"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Please enter your email"
+                    placeholder={formMessages("emailPlaceholder")}
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
                   {fieldState.invalid && (
@@ -146,12 +151,14 @@ export function SignUpForm() {
               control={signUpForm.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="signUp-password">Password</FieldLabel>
+                  <FieldLabel htmlFor="signUp-password">
+                    {onboardingMessages("password")}
+                  </FieldLabel>
                   <Input
                     {...field}
                     id="signUp-password"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Please enter your password"
+                    placeholder={formMessages("passwordPlaceholder")}
                     type="password"
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
@@ -169,13 +176,13 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="signUp-confirmPassword">
-                    Confirm Password
+                    {onboardingMessages("confirmPassword")}
                   </FieldLabel>
                   <Input
                     {...field}
                     id="signUp-confirmPassword"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Please confirm your password"
+                    placeholder={formMessages("confirmPasswordPlaceholder")}
                     type="password"
                     className="placeholder:opacity-0 focus:placeholder:opacity-100 transition-opacity"
                   />
@@ -198,7 +205,9 @@ export function SignUpForm() {
             disabled={signUpForm.formState.isSubmitting}
             fullWidth="w-full"
           >
-            Sign up
+            {signUpForm.formState.isSubmitting
+              ? formMessages("submitting")
+              : onboardingMessages("signUp")}
           </CtaButton>
         </Field>
       </CardFooter>
